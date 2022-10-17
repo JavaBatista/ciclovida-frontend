@@ -20,6 +20,7 @@ import MonthlyBarChart from './MonthlyBarChart';
 // import SalesColumnChart from './SalesColumnChart';
 import MainCard from 'components/MainCard';
 import AnalyticEcommerce from 'components/cards/statistics/AnalyticEcommerce';
+import Datepicker from 'components/Datepicker';
 
 // avatar style
 const avatarSX = {
@@ -121,17 +122,18 @@ const DashboardDefault = () => {
                     </Grid>
                     <Grid item />
                 </Grid>
-                <MainCard sx={{ mt: 2 }} content={false}>
-                    <Box sx={{ p: 3, pb: 0 }}>
-                        <Stack spacing={2}>
+                {/* <MainCard sx={{ mt: 2 }} content={false}> */}
+                <Box sx={{ p: 3, pb: 0 }}>
+                    {/* <Stack spacing={2}>
                             <Typography variant="h6" color="textSecondary">
                                 This Week Statistics
                             </Typography>
                             <Typography variant="h3">$7,650</Typography>
-                        </Stack>
-                    </Box>
-                    <MonthlyBarChart />
-                </MainCard>
+                        </Stack> */}
+                    <Datepicker></Datepicker>
+                </Box>
+                {/* <MonthlyBarChart /> */}
+                {/* </MainCard> */}
             </Grid>
         </Grid>
     );
