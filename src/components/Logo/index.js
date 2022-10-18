@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 // material-ui
-import { ButtonBase } from '@mui/material';
+import { ButtonBase, Typography, Grid } from '@mui/material';
 
 // project import
 import Logo from './Logo';
@@ -13,6 +13,9 @@ import config from 'config';
 const LogoSection = ({ sx, to }) => (
     <ButtonBase disableRipple component={Link} to={!to ? config.defaultPath : to} sx={sx}>
         <Logo />
+        <Grid item xs={12} container   justifyContent="center" alignItems="center"> 
+        <Typography variant="h3">Biking</Typography>
+        </Grid>
     </ButtonBase>
 );
 

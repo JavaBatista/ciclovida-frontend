@@ -10,12 +10,14 @@ import AuthFooter from 'components/cards/AuthFooter';
 
 // assets
 import AuthBackground from 'assets/images/auth/AuthBackground';
+import BikeBackground from 'assets/images/auth/BikeBackground';
 
 // ==============================|| AUTHENTICATION - WRAPPER ||============================== //
 
 const AuthWrapper = ({ children }) => (
     <Box sx={{ minHeight: '100vh' }}>
-        <AuthBackground />
+        {/* <AuthBackground /> */}
+        <BikeBackground />
         <Grid
             container
             direction="column"
