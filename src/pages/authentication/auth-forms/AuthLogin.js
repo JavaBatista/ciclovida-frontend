@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 // material-ui
 import {
@@ -43,6 +43,8 @@ const AuthLogin = () => {
         event.preventDefault();
     };
 
+    let navigate = useNavigate();
+
     return (
         <>
             <Formik
@@ -71,7 +73,7 @@ const AuthLogin = () => {
                         <Grid container spacing={3}>
                             <Grid item xs={12}>
                                 <Stack spacing={1}>
-                                    <InputLabel htmlFor="email-login">Email Address</InputLabel>
+                                    <InputLabel htmlFor="email-login">Email</InputLabel>
                                     <OutlinedInput
                                         id="email-login"
                                         type="email"
@@ -92,7 +94,7 @@ const AuthLogin = () => {
                             </Grid>
                             <Grid item xs={12}>
                                 <Stack spacing={1}>
-                                    <InputLabel htmlFor="password-login">Password</InputLabel>
+                                    <InputLabel htmlFor="password-login">Senha</InputLabel>
                                     <OutlinedInput
                                         fullWidth
                                         error={Boolean(touched.password && errors.password)}
@@ -137,10 +139,10 @@ const AuthLogin = () => {
                                                 size="small"
                                             />
                                         }
-                                        label={<Typography variant="h6">Keep me sign in</Typography>}
+                                        label={<Typography variant="h6">Mantenha-me conectado</Typography>}
                                     />
                                     <Link variant="h6" component={RouterLink} to="" color="text.primary">
-                                        Forgot Password?
+                                    Esqueceu a senha?
                                     </Link>
                                 </Stack>
                             </Grid>
@@ -160,7 +162,7 @@ const AuthLogin = () => {
                                         variant="contained"
                                         color="primary"
                                     >
-                                        Login
+                                        Entrar
                                     </Button>
                                 </AnimateButton>
                             </Grid>
@@ -169,8 +171,23 @@ const AuthLogin = () => {
                                     {/* <Typography variant="caption"> Login with</Typography> */}
                                 </Divider>
                             </Grid>
-                            <Grid item xs={12}>
-                                <FirebaseSocial />
+                            <Grid item xs={12} container   justifyContent="center" alignItems="center"> 
+                                <AnimateButton>
+                                    <Button
+                                        disableElevation
+                                        disabled={isSubmitting}
+                                        // fullWidth
+                                        size="medium"
+                                        type="submit"
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={() => {
+                                            navigate("/register");
+                                          }}
+                                    >
+                                        Cadastrar
+                                    </Button>
+                                </AnimateButton>
                             </Grid>
                         </Grid>
                     </form>
