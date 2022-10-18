@@ -248,7 +248,7 @@ const AuthRegister = () => {
                                         variant="contained"
                                         color="primary"
                                     >
-                                        Criar conta
+                                        Criar
                                     </Button>
                                 </AnimateButton>
                             </Grid>

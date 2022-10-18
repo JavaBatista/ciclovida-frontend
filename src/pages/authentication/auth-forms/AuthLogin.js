@@ -49,8 +49,8 @@ const AuthLogin = () => {
         <>
             <Formik
                 initialValues={{
-                    email: 'info@codedthemes.com',
-                    password: '123456',
+                    email: 'gabriel@user.com',
+                    password: 'gabriel123',
                     submit: null
                 }}
                 validationSchema={Yup.object().shape({
@@ -185,7 +185,7 @@ const AuthLogin = () => {
                                             navigate("/register");
                                           }}
                                     >
-                                        Cadastrar
+                                        Criar conta
                                     </Button>
                                 </AnimateButton>
                             </Grid>
