@@ -9,17 +9,15 @@ import { PickersDay } from '@mui/x-date-pickers';
 import { useSelector } from 'react-redux';
 import axios from "axios";
 
-const minDate = dayjs('2022-10-01T00:00:00.000');
-const maxDate = dayjs('2022-10-30T00:00:00.000');
-
-const tdate = dayjs('2022-10-15');
-
 const Datepicker = () => {
   const [dates, setDates] = useState([]);
   const [value, setValue] = useState(dayjs('2022-10-07'));
 
+
   useEffect(() => {
     getDates();
+    setValue(dayjs(date));
+
   }, []);
 
   const userId = useSelector((state) => state.session.userId);
@@ -59,8 +57,8 @@ const Datepicker = () => {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
           <StaticDatePicker 
-            // minDate={minDate}
-            maxDate={maxDate}
+            minDate={dates[0]}
+            maxDate={dates[dates.length - 1]}
             displayStaticWrapperAs="desktop"
             value={value} 
             onChange={(newValue) => {
