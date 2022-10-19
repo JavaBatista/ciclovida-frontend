@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import axios from "axios";
 
 // material-ui
 import {
@@ -25,6 +27,7 @@ import { Formik } from 'formik';
 // project import
 import FirebaseSocial from './FirebaseSocial';
 import AnimateButton from 'components/@extended/AnimateButton';
+import { sessionLogin } from '../../../store/reducers/session';
 
 // assets
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
@@ -44,6 +47,32 @@ const AuthLogin = () => {
     };
 
     let navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    function login(values) {
+        let login = `${values.email}:${values.password}`
+    
+        //utf8_to_b64
+        let authorization = window.btoa(unescape(encodeURIComponent(login)));
+    
+        const config = {
+          "headers": {
+            "Authorization": `Basic ${authorization}`
+          }
+        };
+        const url = "http://localhost:8080/login";
+    
+        axios.get(url, config)
+          .then(res => {
+            console.log(res.data);
+            let payload = res.data;
+            payload.authorization = authorization;
+            dispatch(sessionLogin(payload));
+            console.log(res.data.userId);
+            navigate("/dashboard/default");
+          })
+          .catch(err => console.log(err))
+      }
 
     return (
         <>
@@ -60,6 +89,7 @@ const AuthLogin = () => {
                 onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
                     try {
                         setStatus({ success: false });
+                        login(values);
                         setSubmitting(false);
                     } catch (err) {
                         setStatus({ success: false });
