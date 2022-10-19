@@ -5,7 +5,8 @@ const initialState = {
     userId: -1,
     name: '',
     isLoggedIn: false,
-    authorization: ''
+    authorization: '',
+    date: ``
 };
 
 const session = createSlice({
@@ -29,6 +30,7 @@ const session = createSlice({
             state.name = action.payload.name;
             state.authorization = action.payload.authorization;
             state.isLoggedIn = true;
+            state.date = action.payload.date;
         },
 
         sessionLogout(state) {
@@ -36,6 +38,7 @@ const session = createSlice({
             state.name = '';
             state.isLoggedIn = false;
             state.authorization = '';
+            state.date = ``;
         }
     }
 });
