@@ -74,7 +74,7 @@ const AuthLogin = () => {
 
             setStatus({ success: true });
 
-            navigate("/dashboard/default");
+            navigate("/dashboard");
         })
         .catch(error => {
             console.log(error)
