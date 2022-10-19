@@ -19,7 +19,7 @@ import IncomeAreaChart from './IncomeAreaChart';
 import MonthlyBarChart from './MonthlyBarChart';
 // import SalesColumnChart from './SalesColumnChart';
 import MainCard from 'components/MainCard';
-import AnalyticEcommerce from 'components/cards/statistics/AnalyticEcommerce';
+import StatisticsCard from 'components/cards/statistics/StatisticsCard';
 import Datepicker from 'components/Datepicker';
 
 // avatar style
@@ -68,16 +68,16 @@ const DashboardDefault = () => {
                 <Typography variant="h5">Dashboard</Typography>
             </Grid>
             <Grid item xs={12} sm={6} md={4} lg={3}>
-                <AnalyticEcommerce title="Mês" count="Março de 2022" />
+                <StatisticsCard title="Mês" count="Março de 2022" />
             </Grid>
             <Grid item xs={12} sm={6} md={4} lg={3}>
-                <AnalyticEcommerce title="Total De Dias" count="15"  extra="8,900" />
+                <StatisticsCard title="Total De Dias" count="15"  extra="8,900" />
             </Grid>
             <Grid item xs={12} sm={6} md={4} lg={3}>
-                <AnalyticEcommerce title="Tempo Total" count="18:37:21" isLoss color="warning" extra="1,943" />
+                <StatisticsCard title="Tempo Total" count="18:37:21" isLoss color="warning" extra="1,943" />
             </Grid>
             <Grid item xs={12} sm={6} md={4} lg={3}>
-                <AnalyticEcommerce title="Distância Total" count="345 Km" isLoss color="warning" extra="$20,395" />
+                <StatisticsCard title="Distância Total" count="345 Km" isLoss color="warning" extra="$20,395" />
             </Grid>
 
             <Grid item md={8} sx={{ display: { sm: 'none', md: 'block', lg: 'none' } }} />
