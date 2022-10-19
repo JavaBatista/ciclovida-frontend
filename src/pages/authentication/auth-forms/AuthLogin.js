@@ -49,34 +49,46 @@ const AuthLogin = () => {
     let navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const handleSubmit = async values => {};
-
-    function login(values) {
+    const handleSubmit = async (values, { setErrors, setStatus, setSubmitting }) => {
         let login = `${values.email}:${values.password}`
-    
         //utf8_to_b64
         let authorization = window.btoa(unescape(encodeURIComponent(login)));
-    
+
         const config = {
-          "headers": {
-            "Authorization": `Basic ${authorization}`
-          }
+            "headers": {
+                "Authorization": `Basic ${authorization}`
+            }
         };
+
         const url = "http://localhost:8080/login";
-    
+
         axios.get(url, config)
-          .then(res => {
+        .then(res => {
+            setSubmitting(true);
+
             console.log(res.data);
             let payload = res.data;
             payload.authorization = authorization;
             dispatch(sessionLogin(payload));
             console.log(res.data.userId);
+
+            setStatus({ success: true });
+
             navigate("/dashboard/default");
-          })
-          .catch(err => console.log(err))
-      }
-
-
+        })
+        .catch(error => {
+            console.log(error)
+            setStatus({ success: false });
+            let message = ``;
+            if(error.response.status === 401) {
+                message = `Usuário ou senha invalidos`
+            }else {
+                message = `Erro no servidor`
+            }
+            setErrors({ submit: message });
+            setSubmitting(false);
+        })
+    };
 
     return (
         <>
@@ -90,17 +102,7 @@ const AuthLogin = () => {
                     email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
                     password: Yup.string().max(255).required('Password is required')
                 })}
-                onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
-                    try {
-                        setStatus({ success: false });
-                        login(values);
-                        setSubmitting(false);
-                    } catch (err) {
-                        setStatus({ success: false });
-                        setErrors({ submit: err.message });
-                        setSubmitting(false);
-                    }
-                }}
+                onSubmit={handleSubmit}
             >
                 {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
                     <form noValidate onSubmit={handleSubmit}>
@@ -176,7 +178,7 @@ const AuthLogin = () => {
                                         label={<Typography variant="h6">Mantenha-me conectado</Typography>}
                                     />
                                     <Link variant="h6" component={RouterLink} to="" color="text.primary">
-                                    Esqueceu a senha?
+                                        Esqueceu a senha?
                                     </Link>
                                 </Stack>
                             </Grid>
@@ -205,7 +207,7 @@ const AuthLogin = () => {
                                     {/* <Typography variant="caption"> Login with</Typography> */}
                                 </Divider>
                             </Grid>
-                            <Grid item xs={12} container   justifyContent="center" alignItems="center"> 
+                            <Grid item xs={12} container justifyContent="center" alignItems="center">
                                 <AnimateButton>
                                     <Button
                                         disableElevation
@@ -217,7 +219,7 @@ const AuthLogin = () => {
                                         color="primary"
                                         onClick={() => {
                                             navigate("/register");
-                                          }}
+                                        }}
                                     >
                                         Criar conta
                                     </Button>
