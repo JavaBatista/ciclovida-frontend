@@ -49,6 +49,8 @@ const AuthLogin = () => {
     let navigate = useNavigate();
     const dispatch = useDispatch();
 
+    const handleSubmit = async values => {};
+
     function login(values) {
         let login = `${values.email}:${values.password}`
     
@@ -73,6 +75,8 @@ const AuthLogin = () => {
           })
           .catch(err => console.log(err))
       }
+
+
 
     return (
         <>
