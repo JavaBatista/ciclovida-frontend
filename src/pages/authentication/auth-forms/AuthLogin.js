@@ -80,13 +80,21 @@ const AuthLogin = () => {
             console.log(error)
             setStatus({ success: false });
             let message = ``;
-            if(error.response.status === 401) {
-                message = `Usuário ou senha invalidos`
-            }else {
-                message = `Erro no servidor`
-            }
-            setErrors({ submit: message });
-            setSubmitting(false);
+
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                if(error.response.status === 401) {
+                    message = `Usuário ou senha invalidos`
+                }else {
+                    message = `Erro no servidor`
+                }
+              } else if (error.request) { 
+                message = `Falha de conexão`
+              }
+
+              setErrors({ submit: message });
+              setSubmitting(false);
         })
     };
 

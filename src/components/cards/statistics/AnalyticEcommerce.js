@@ -14,16 +14,16 @@ import { RiseOutlined, FallOutlined } from '@ant-design/icons';
 const AnalyticEcommerce = ({ color, title, count, percentage, isLoss, extra }) => (
     <MainCard contentSX={{ p: 2.25 }}>
         <Stack spacing={0.5}>
-            <Typography variant="h6" color="textSecondary">
+            <Typography variant="h6" color="textSecondary" align="center">
                 {title}
             </Typography>
-            <Grid container alignItems="center">
+            <Grid container justifyContent="center" alignItems="center">
                 <Grid item>
                     <Typography variant="h4" color="inherit">
                         {count}
                     </Typography>
                 </Grid>
-                {percentage && (
+                {extra && (
                     <Grid item>
                         <Chip
                             variant="combined"
@@ -34,7 +34,7 @@ const AnalyticEcommerce = ({ color, title, count, percentage, isLoss, extra }) =
                                     {isLoss && <FallOutlined style={{ fontSize: '0.75rem', color: 'inherit' }} />}
                                 </>
                             }
-                            label={`${percentage}%`}
+                            // label={`${percentage}%`}
                             sx={{ ml: 1.25, pl: 1 }}
                             size="small"
                         />
@@ -42,15 +42,15 @@ const AnalyticEcommerce = ({ color, title, count, percentage, isLoss, extra }) =
                 )}
             </Grid>
         </Stack>
-        <Box sx={{ pt: 2.25 }}>
+        {/* <Box sx={{ pt: 2.25 }}>
             <Typography variant="caption" color="textSecondary">
-                You made an extra{' '}
+                {'A mais '}
                 <Typography component="span" variant="caption" sx={{ color: `${color || 'primary'}.main` }}>
                     {extra}
                 </Typography>{' '}
-                this year
+                esse mês
             </Typography>
-        </Box>
+        </Box> */}
     </MainCard>
 );
 
