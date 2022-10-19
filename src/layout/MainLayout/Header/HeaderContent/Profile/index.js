@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import { useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import {
@@ -28,6 +30,8 @@ import SettingTab from './SettingTab';
 // assets
 import avatar1 from 'assets/images/users/avatar-1.png';
 import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
+import { sessionLogout } from 'store/reducers/session';
+import { replace } from 'lodash';
 
 // tab panel wrapper
 function TabPanel({ children, value, index, ...other }) {
@@ -55,9 +59,14 @@ function a11yProps(index) {
 
 const Profile = () => {
     const theme = useTheme();
+    let navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleLogout = async () => {
-        // logout
+        
+        dispatch(sessionLogout());
+
+        navigate("/login");
     };
 
     const anchorRef = useRef(null);

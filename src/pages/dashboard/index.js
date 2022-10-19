@@ -122,7 +122,7 @@ const DashboardDefault = () => {
                     </Grid>
                     <Grid item />
                 </Grid>
-                {/* <MainCard sx={{ mt: 2 }} content={false}> */}
+                <MainCard sx={{ mt: 2 }} content={false}>
                 <Box sx={{ p: 3, pb: 0 }}>
                     {/* <Stack spacing={2}>
                             <Typography variant="h6" color="textSecondary">
@@ -130,10 +130,10 @@ const DashboardDefault = () => {
                             </Typography>
                             <Typography variant="h3">$7,650</Typography>
                         </Stack> */}
-                    <Datepicker></Datepicker>
+                    <Datepicker />
                 </Box>
                 {/* <MonthlyBarChart /> */}
-                {/* </MainCard> */}
+                </MainCard>
             </Grid>
         </Grid>
     );

@@ -1,30 +1,21 @@
-import React, { useState } from 'react';
-import 'react-modern-calendar-datepicker/lib/DatePicker.css';
-import { Calendar } from 'react-modern-calendar-datepicker';
+import * as React from 'react';
+import dayjs from 'dayjs';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { CalendarPicker } from '@mui/x-date-pickers/CalendarPicker';
 
-import { useTheme } from '@mui/material/styles';
+const minDate = dayjs('2020-01-01T00:00:00.000');
+const maxDate = dayjs('2034-01-01T00:00:00.000');
 
 const Datepicker = () => {
+  const [date, setDate] = React.useState(dayjs('2022-04-07'));
 
-    const theme = useTheme();
+  return (
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <CalendarPicker date={date} onChange={(newDate) => setDate(newDate)} />
+    </LocalizationProvider>
+  );
+}
 
-    const defaultValue = {
-        year: 2019,
-        month: 10,
-        day: 5
-    };
-
-    const [selectedDay, setSelectedDay] = useState(defaultValue);
-    return (
-        <Calendar 
-        value={selectedDay} 
-        onChange={setSelectedDay} 
-        shouldHighlightWeekends 
-        // colorPrimary={theme.palette.primary} 
-        // colorPrimaryLight={theme.palette.primary.light}
-        />
-        );
-        
-};
 
 export default Datepicker;
