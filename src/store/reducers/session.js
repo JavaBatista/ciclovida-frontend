@@ -4,7 +4,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     userId: -1,
     name: '',
-    userLoggedIn: false,
+    isLoggedIn: false,
     authorization: ''
 };
 
@@ -28,13 +28,13 @@ const session = createSlice({
             state.userId = action.payload.userId;
             state.name = action.payload.name;
             state.authorization = action.payload.authorization;
-            state.userLoggedIn = true;
+            state.isLoggedIn = true;
         },
 
         sessionLogout(state) {
             state.userId = -1;
             state.name = '';
-            state.userLoggedIn = false;
+            state.isLoggedIn = false;
             state.authorization = '';
         }
     }

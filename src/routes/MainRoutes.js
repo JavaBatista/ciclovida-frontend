@@ -1,4 +1,5 @@
 import { lazy } from 'react';
+import { Navigate } from 'react-router-dom';
 
 // project import
 import Loadable from 'components/Loadable';
@@ -18,35 +19,38 @@ const AntIcons = Loadable(lazy(() => import('pages/components-overview/AntIcons'
 
 // ==============================|| MAIN ROUTING ||============================== //
 
-const MainRoutes = {
-    path: '/',
-    element: <MainLayout />,
-    children: [
-        {
-            path: 'dashboard',
-            element: <DashboardDefault />
-        },
-        {
-            path: 'color',
-            element: <Color />
-        },
-        {
-            path: 'sample-page',
-            element: <SamplePage />
-        },
-        {
-            path: 'shadow',
-            element: <Shadow />
-        },
-        {
-            path: 'typography',
-            element: <Typography />
-        },
-        {
-            path: 'icons/ant',
-            element: <AntIcons />
-        }
-    ]
-};
+const MainRoutes = (isLoggedIn) => {
+    return {
+        path: '/',
+        element: isLoggedIn ? <MainLayout /> : <Navigate to="/login" />,
+        children: [
+            {
+                path: 'dashboard',
+                element: <DashboardDefault />
+            },
+            {
+                path: 'color',
+                element: <Color />
+            },
+            {
+                path: 'sample-page',
+                element: <SamplePage />
+            },
+            {
+                path: 'shadow',
+                element: <Shadow />
+            },
+            {
+                path: 'typography',
+                element: <Typography />
+            },
+            {
+                path: 'icons/ant',
+                element: <AntIcons />
+            }
+        ]
+    }
+}
+
 
 export default MainRoutes;
