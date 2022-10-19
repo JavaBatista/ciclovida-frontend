@@ -48,7 +48,8 @@ const Datepicker = () => {
 
   const renderDays = (day, selectedDays, pickersDayProps) => {
 
-        let select = day.isSame('2022-10-10', 'day');
+        // let select = day.isSame('2022-10-10', 'day');
+        let select = dates.includes(day.format('YYYY-MM-DD'));
 
     return (
         <PickersDay {...pickersDayProps} day={day}  selected={select} disabled={!select} /> 
