@@ -93,7 +93,7 @@ function totalDistance(monthStats) {
 
 const DashboardDefault = () => {
     const [value, setValue] = useState('today');
-    const [slot, setSlot] = useState('week');
+    const [slot, setSlot] = useState('distance');
     const [months, setMonths] = useState([]);
     const [month, setMonth] = useState();
     const [monthStats, setMonthStats] = useState();
@@ -171,32 +171,32 @@ const DashboardDefault = () => {
             <Grid item xs={12} md={7} lg={8}>
                 <Grid container alignItems="center" justifyContent="space-between">
                     <Grid item>
-                        <Typography variant="h5">Unique Visitor</Typography>
+                        <Typography variant="h5">Desempenho</Typography>
                     </Grid>
                     <Grid item>
                         <Stack direction="row" alignItems="center" spacing={0}>
                             <Button
                                 size="small"
-                                onClick={() => setSlot('month')}
-                                color={slot === 'month' ? 'primary' : 'secondary'}
-                                variant={slot === 'month' ? 'outlined' : 'text'}
+                                onClick={() => setSlot('distance')}
+                                color={slot === 'distance' ? 'primary' : 'secondary'}
+                                variant={slot === 'distance' ? 'outlined' : 'text'}
                             >
-                                Month
+                                Distância
                             </Button>
                             <Button
                                 size="small"
-                                onClick={() => setSlot('week')}
-                                color={slot === 'week' ? 'primary' : 'secondary'}
-                                variant={slot === 'week' ? 'outlined' : 'text'}
+                                onClick={() => setSlot('duration')}
+                                color={slot === 'duration' ? 'primary' : 'secondary'}
+                                variant={slot === 'duration' ? 'outlined' : 'text'}
                             >
-                                Week
+                                Duração
                             </Button>
                         </Stack>
                     </Grid>
                 </Grid>
                 <MainCard content={false} sx={{ mt: 1.5 }}>
                     <Box sx={{ pt: 1, pr: 2 }}>
-                        <IncomeAreaChart slot={slot} />
+                        <IncomeAreaChart slot={slot} month={month} />
                     </Box>
                 </MainCard>
             </Grid>
