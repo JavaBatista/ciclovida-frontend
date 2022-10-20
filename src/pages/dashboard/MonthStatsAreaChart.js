@@ -33,7 +33,7 @@ const areaChartOptions = {
 
 // ==============================|| INCOME AREA CHART ||============================== //
 
-const IncomeAreaChart = ({ slot, month }) => {
+const MonthStatsAreaChart = ({ slot, month }) => {
     const theme = useTheme();
 
     const userId = useSelector((state) => state.session.userId);
@@ -175,8 +175,8 @@ const IncomeAreaChart = ({ slot, month }) => {
     return <ReactApexChart options={options} series={series} type="area" height={450} />;
 };
 
-IncomeAreaChart.propTypes = {
+MonthStatsAreaChart.propTypes = {
     slot: PropTypes.string
 };
 
-export default IncomeAreaChart;
+export default MonthStatsAreaChart;

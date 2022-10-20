@@ -18,7 +18,7 @@ import {
 } from '@mui/material';
 
 // project import
-import IncomeAreaChart from './IncomeAreaChart';
+import MonthStatsAreaChart from './MonthStatsAreaChart';
 import MonthlyBarChart from './MonthlyBarChart';
 // import SalesColumnChart from './SalesColumnChart';
 import MainCard from 'components/MainCard';
@@ -196,7 +196,7 @@ const DashboardDefault = () => {
                 </Grid>
                 <MainCard content={false} sx={{ mt: 1.5 }}>
                     <Box sx={{ pt: 1, pr: 2 }}>
-                        <IncomeAreaChart slot={slot} month={month} />
+                        <MonthStatsAreaChart slot={slot} month={month} />
                     </Box>
                 </MainCard>
             </Grid>
