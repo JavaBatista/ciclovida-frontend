@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import axios from "axios";
 
 // material-ui
 import {
@@ -52,6 +53,56 @@ const AuthRegister = () => {
         changePassword('');
     }, []);
 
+    let navigate = useNavigate();
+
+    const handleSubmit = async (values, { setErrors, setStatus, setSubmitting }) => {
+        let user = {
+            name: `${values.firstname} ${values.lastname}`,
+            username: `${values.firstname}`,
+            password: `${values.password}`,
+            email: `${values.email}`,
+            roles: ["USERS"]
+        }
+
+        console.log(user);
+
+        const config = {
+            "headers": {
+                "Authorization": `Basic YWRtaW5AYWRtaW4uY29tOmFkbWluMTIz`
+            }
+        };
+
+        const url = "http://localhost:8080/admin/create_user";
+
+        axios.post(url, user, config)
+            .then(res => {
+                setSubmitting(true);
+                console.log(res);
+                setStatus({ success: true });
+                navigate("/login");
+            })
+            .catch(error => {
+                console.log(error)
+                setStatus({ success: false });
+                let message = ``;
+
+                if (error.response) {
+                    // The request was made and the server responded with a status code
+                    // that falls out of the range of 2xx
+                    if (error.response.status === 401) {
+                        message = `Não autorizado`
+                    } else {
+                        message = `Erro no servidor`
+                    }
+                } else if (error.request) {
+                    message = `Falha de conexão`
+                }
+
+                setErrors({ submit: message });
+                setSubmitting(false);
+            })
+    };
+
     return (
         <>
             <Formik
@@ -64,29 +115,19 @@ const AuthRegister = () => {
                     submit: null
                 }}
                 validationSchema={Yup.object().shape({
-                    firstname: Yup.string().max(255).required('First Name is required'),
-                    lastname: Yup.string().max(255).required('Last Name is required'),
-                    email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-                    password: Yup.string().max(255).required('Password is required')
+                    firstname: Yup.string().max(255).required('Por favor, informe um nome'),
+                    lastname: Yup.string().max(255).required('Por favor, informe um sobrenome'),
+                    email: Yup.string().email('O e-mail deve ser válido').max(255).required('Seu e-mail'),
+                    password: Yup.string().max(255).required('Crie sua senha')
                 })}
-                onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
-                    try {
-                        setStatus({ success: false });
-                        setSubmitting(false);
-                    } catch (err) {
-                        console.error(err);
-                        setStatus({ success: false });
-                        setErrors({ submit: err.message });
-                        setSubmitting(false);
-                    }
-                }}
+                onSubmit={handleSubmit}
             >
                 {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
                     <form noValidate onSubmit={handleSubmit}>
                         <Grid container spacing={3}>
                             <Grid item xs={12} md={6}>
                                 <Stack spacing={1}>
-                                    <InputLabel htmlFor="firstname-signup">First Name*</InputLabel>
+                                    <InputLabel htmlFor="firstname-signup">Nome*</InputLabel>
                                     <OutlinedInput
                                         id="firstname-login"
                                         type="firstname"
@@ -94,7 +135,7 @@ const AuthRegister = () => {
                                         name="firstname"
                                         onBlur={handleBlur}
                                         onChange={handleChange}
-                                        placeholder="John"
+                                        placeholder="Ana"
                                         fullWidth
                                         error={Boolean(touched.firstname && errors.firstname)}
                                     />
@@ -107,7 +148,7 @@ const AuthRegister = () => {
                             </Grid>
                             <Grid item xs={12} md={6}>
                                 <Stack spacing={1}>
-                                    <InputLabel htmlFor="lastname-signup">Last Name*</InputLabel>
+                                    <InputLabel htmlFor="lastname-signup">Sobrenome*</InputLabel>
                                     <OutlinedInput
                                         fullWidth
                                         error={Boolean(touched.lastname && errors.lastname)}
@@ -117,7 +158,7 @@ const AuthRegister = () => {
                                         name="lastname"
                                         onBlur={handleBlur}
                                         onChange={handleChange}
-                                        placeholder="Doe"
+                                        placeholder="Silva"
                                         inputProps={{}}
                                     />
                                     {touched.lastname && errors.lastname && (
@@ -150,7 +191,7 @@ const AuthRegister = () => {
                             </Grid> */}
                             <Grid item xs={12}>
                                 <Stack spacing={1}>
-                                    <InputLabel htmlFor="email-signup">Email Address*</InputLabel>
+                                    <InputLabel htmlFor="email-signup">Email*</InputLabel>
                                     <OutlinedInput
                                         fullWidth
                                         error={Boolean(touched.email && errors.email)}
@@ -160,7 +201,7 @@ const AuthRegister = () => {
                                         name="email"
                                         onBlur={handleBlur}
                                         onChange={handleChange}
-                                        placeholder="demo@company.com"
+                                        placeholder="ana@user.com"
                                         inputProps={{}}
                                     />
                                     {touched.email && errors.email && (
@@ -172,7 +213,7 @@ const AuthRegister = () => {
                             </Grid>
                             <Grid item xs={12}>
                                 <Stack spacing={1}>
-                                    <InputLabel htmlFor="password-signup">Password</InputLabel>
+                                    <InputLabel htmlFor="password-signup">Senha</InputLabel>
                                     <OutlinedInput
                                         fullWidth
                                         error={Boolean(touched.password && errors.password)}
@@ -222,13 +263,13 @@ const AuthRegister = () => {
                             </Grid>
                             <Grid item xs={12}>
                                 <Typography variant="body2">
-                                    By Signing up, you agree to our &nbsp;
+                                    Ao continuar, declaro que estou ciente e aceito os &nbsp;
                                     <Link variant="subtitle2" component={RouterLink} to="#">
-                                        Terms of Service
+                                        termos de uso do produto
                                     </Link>
-                                    &nbsp; and &nbsp;
+                                    &nbsp; e a &nbsp;
                                     <Link variant="subtitle2" component={RouterLink} to="#">
-                                        Privacy Policy
+                                        política de privacidade
                                     </Link>
                                 </Typography>
                             </Grid>
