@@ -11,7 +11,7 @@ import { RiseOutlined, FallOutlined } from '@ant-design/icons';
 
 // ==============================|| STATISTICS - ECOMMERCE CARD  ||============================== //
 
-const StatisticsCard = ({ color, title, count, percentage, isLoss, extra }) => (
+const StatisticsCard = ({ color, title, value, percentage, isLoss, extra }) => (
     <MainCard contentSX={{ p: 2.25 }}>
         <Stack spacing={0.5}>
             <Typography variant="h6" color="textSecondary" align="center">
@@ -20,7 +20,7 @@ const StatisticsCard = ({ color, title, count, percentage, isLoss, extra }) => (
             <Grid container justifyContent="center" alignItems="center">
                 <Grid item>
                     <Typography variant="h4" color="inherit">
-                        {count}
+                        {value}
                     </Typography>
                 </Grid>
                 {extra && (
