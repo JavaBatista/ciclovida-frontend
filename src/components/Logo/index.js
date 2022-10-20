@@ -14,7 +14,7 @@ const LogoSection = ({ sx, to }) => (
     <ButtonBase disableRipple component={Link} to={!to ? config.defaultPath : to} sx={sx}>
         <Logo />
         <Grid item xs={12} container   justifyContent="center" alignItems="center"> 
-        <Typography variant="h3">Biking</Typography>
+        <Typography variant="h3">CicloVida</Typography>
         </Grid>
     </ButtonBase>
 );

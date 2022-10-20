@@ -15,7 +15,7 @@ const AuthFooter = () => {
                 textAlign={matchDownSM ? 'center' : 'inherit'}
             >
                 <Typography variant="subtitle2" color="secondary" component="span">
-                    &copy; Biking app By&nbsp;
+                    &copy; CicloVida app By&nbsp;
                     <Typography component={Link} variant="subtitle2" href="mailto:java.batista@outlook" target="_blank" underline="hover">
                         Javã batista
                     </Typography>
