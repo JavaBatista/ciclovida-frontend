@@ -34,6 +34,6 @@ jobs:
                   # ARGS: "-rltgoDzvO --delete"
                   SOURCE: 'build/'
                   REMOTE_HOST: 192.34.62.123
-                  REMOTE_USER: mantis
+                  REMOTE_USER: admin
                   TARGET: public_html/biking
                   EXCLUDE: '/dist/, /node_modules/'
