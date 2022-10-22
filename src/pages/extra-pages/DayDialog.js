@@ -39,6 +39,33 @@ const initialDay = {
 	"cyclingQuality": 0.0
 }
 
+const meses = [
+    "Janeiro",
+    "Fevereiro",
+    "Março",
+    "Abril",
+    "Maio",
+    "Junho",
+    "Julho",
+    "Agosto",
+    "Setembro",
+    "Outubro",
+    "Novembro",
+    "Dezembro"
+  ];
+
+  const semana = [
+      "Domingo", 
+      "Segunda-Feira", 
+      "Terça-Feira", 
+      "Quarta-Feira", 
+      "Quinta-Feira", 
+      "Sexta-Feira", 
+      "Sábado"
+    ];
+
+
+
 const DayDialog = ({ openDialog, date }) => {
     const [open, setOpen] = useState(false);
     const [day, setDay] = useState(initialDay);
@@ -82,6 +109,12 @@ const DayDialog = ({ openDialog, date }) => {
     const handleClose = () => {
         setOpen(false);
     };
+
+    function dialogTitle() {
+
+        let title = `${semana[dayjs(date).day()]}, ${dayjs(date).date()} de ${meses[dayjs(date).month()]} de ${dayjs(date).year()}`;
+        return title;
+    }
  
 
     return (
@@ -94,7 +127,7 @@ const DayDialog = ({ openDialog, date }) => {
             fullWidth={true}
             maxWidth='lg'
         >
-            <DialogTitle><Typography variant="h5">{`${date}`}</Typography></DialogTitle> 
+            <DialogTitle><Typography variant="h4">{`${dialogTitle()}`}</Typography></DialogTitle> 
             <DialogContent>
 
                 <Grid container rowSpacing={4.5} columnSpacing={2.75}>
