@@ -132,16 +132,16 @@ const DayDialog = ({ openDialog, date }) => {
 
                 <Grid container rowSpacing={4.5} columnSpacing={2.75}>
                     <Grid item xs={12} sm={6} md={4} lg={3}>
-                        <StatisticsCard title="Hora de saída" value={`${dayjs(day.startTime).format('HH:mm:ss')}`} />
+                        <StatisticsCard title="Hora de saída" value={`${dayjs(day.startTime).format('HH:mm:ss')} AM`} />
                     </Grid>
                     <Grid item xs={12} sm={6} md={4} lg={3}>
-                        <StatisticsCard title="Hora de chegada" value={`${dayjs(day.finishTime).format('HH:mm:ss')}`} />
+                        <StatisticsCard title="Hora de chegada" value={`${dayjs(day.finishTime).format('HH:mm:ss')} AM`} />
                     </Grid>
                     <Grid item xs={12} sm={6} md={4} lg={3}>
-                        <StatisticsCard title="Tempo total" value={` ${day.totalTime} horas`} />
+                        <StatisticsCard title="Tempo total" value={` ${day.totalTime}`} />
                     </Grid>
                     <Grid item xs={12} sm={6} md={4} lg={3}>
-                        <StatisticsCard title="Tempo de atividade" value={` ${day.cyclingTime} horas`} />
+                        <StatisticsCard title="Tempo de atividade" value={` ${day.cyclingTime}`} />
                     </Grid>
 
                     <Grid item md={8} sx={{ display: { sm: 'none', md: 'block', lg: 'none' } }} />
