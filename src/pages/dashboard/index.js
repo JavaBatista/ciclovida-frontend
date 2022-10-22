@@ -25,6 +25,7 @@ import MainCard from 'components/MainCard';
 import StatisticsCard from 'components/cards/statistics/StatisticsCard';
 import Datepicker from 'components/Datepicker';
 import { func } from 'prop-types';
+import DayDialog from 'pages/extra-pages/DayDialog';
 
 // avatar style
 const avatarSX = {
@@ -97,6 +98,7 @@ const DashboardDefault = () => {
     const [months, setMonths] = useState([]);
     const [month, setMonth] = useState();
     const [monthStats, setMonthStats] = useState();
+    const [day, setDay] = useState();
 
     useEffect(() => {
         getMonths();
@@ -117,6 +119,10 @@ const DashboardDefault = () => {
 
     const updateMonth = (newMonth) => {
         setMonth(newMonth);
+     }
+
+    const handleDayDialog = (day) => {
+            setDay(day);
      }
 
     const userId = useSelector((state) => state.session.userId);
@@ -215,11 +221,12 @@ const DashboardDefault = () => {
                             </Typography>
                             <Typography variant="h3">$7,650</Typography>
                         </Stack> */}
-                        <Datepicker updateMonth={updateMonth} />
+                        <Datepicker updateMonth={updateMonth} handleDayDialog={handleDayDialog} />
                     </Box>
                     {/* <MonthlyBarChart /> */}
                 </MainCard>
             </Grid>
+                        <DayDialog date={day} />
         </Grid>
     );
 };

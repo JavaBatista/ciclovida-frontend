@@ -9,7 +9,7 @@ import { PickersDay } from '@mui/x-date-pickers';
 import { useSelector } from 'react-redux';
 import axios from "axios";
 
-const Datepicker = ({updateMonth}) => {
+const Datepicker = ({updateMonth, handleDayDialog}) => {
   const [dates, setDates] = useState([]);
   const [value, setValue] = useState(dayjs('2022-10-07'));
 
@@ -63,6 +63,7 @@ const Datepicker = ({updateMonth}) => {
             value={value} 
             onChange={(newValue) => {
                 setValue(newValue);
+                handleDayDialog(newValue);
               }}
             onMonthChange={(newValue) => {
               updateMonth(newValue.format('YYYY-MM-DD'));
