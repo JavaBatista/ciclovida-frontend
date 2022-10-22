@@ -1,4 +1,4 @@
-import * as React from 'react';
+// import * as React from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -7,6 +7,11 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 
+import React, { useState, useEffect, forwardRef } from 'react';
+import dayjs from 'dayjs';
+import { useSelector } from 'react-redux';
+import axios from "axios";
+
 // material-ui
 import { Typography, Grid, TextField } from '@mui/material';
 
@@ -14,20 +19,61 @@ import { Typography, Grid, TextField } from '@mui/material';
 import MainCard from 'components/MainCard';
 import StatisticsCard from 'components/cards/statistics/StatisticsCard';
 
-const Transition = React.forwardRef(function Transition(props, ref) {
+const Transition = forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const DayDialog = ({ openDialog, date }) => {
-    const [open, setOpen] = React.useState(false);
+const initialDay = {
+	"id": 0,
+	"date": "2022-07-08",
+	"startTime": "2022-07-08T08:30:00Z",
+	"finishTime": "2022-07-08T10:00:00Z",
+	"cyclingTime": "00:00:00",
+	"distance": 0.0,
+	"odometer": 0.0,
+	"maxSpeed": 0.0,
+	"avgSpeed": 0.0,
+	"windCondition": "WEAK",
+	"comments": "",
+	"totalTime": "00:00:00",
+	"cyclingQuality": 0.0
+}
 
-    React.useEffect(() => {
+const DayDialog = ({ openDialog, date }) => {
+    const [open, setOpen] = useState(false);
+    const [day, setDay] = useState(initialDay);
+
+    useEffect(() => {
 
         if (typeof date != "undefined") {
+            getDay();
             handleClickOpen();
         }
 
     }, [date]);
+
+    const userId = useSelector((state) => state.session.userId);
+    const authorization = useSelector((state) => state.session.authorization);
+
+    const getDay = () => {
+
+        // console.log(userId);
+        // console.log(authorization);
+    
+        const config = {
+            "headers": {
+                "Authorization": `Basic ${authorization}`
+            }
+        };
+        const url = `http://localhost:8080/user/${userId}/day?date=${date.format('YYYY-MM-DD')}`;
+    
+        axios.get(url, config)
+            .then(res => {
+                // console.log(res.data)
+                setDay(res.data);
+            })
+            .catch(err => console.log(err))
+      }
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -36,7 +82,7 @@ const DayDialog = ({ openDialog, date }) => {
     const handleClose = () => {
         setOpen(false);
     };
-    //{`${date}`}
+ 
 
     return (
         <Dialog
@@ -45,46 +91,49 @@ const DayDialog = ({ openDialog, date }) => {
             keepMounted
             onClose={handleClose}
             aria-describedby="alert-dialog-slide-description"
-            fullWidth="xl"
+            fullWidth={true}
+            maxWidth='lg'
         >
             <DialogTitle><Typography variant="h5">{`${date}`}</Typography></DialogTitle> 
             <DialogContent>
 
                 <Grid container rowSpacing={4.5} columnSpacing={2.75}>
                     <Grid item xs={12} sm={6} md={4} lg={3}>
-                        <StatisticsCard title="Mês" value={"janeiro"} />
+                        <StatisticsCard title="Hora de saída" value={`${dayjs(day.startTime).format('HH:mm:ss')}`} />
                     </Grid>
                     <Grid item xs={12} sm={6} md={4} lg={3}>
-                        <StatisticsCard title="Total De Dias" value={` 15 ias`} />
+                        <StatisticsCard title="Hora de chegada" value={`${dayjs(day.finishTime).format('HH:mm:ss')}`} />
                     </Grid>
                     <Grid item xs={12} sm={6} md={4} lg={3}>
-                        <StatisticsCard title="Tempo Total" value={` 1:00:15 horas`} />
+                        <StatisticsCard title="Tempo total" value={` ${day.totalTime} horas`} />
                     </Grid>
                     <Grid item xs={12} sm={6} md={4} lg={3}>
-                        <StatisticsCard title="Distância Total" value={`24 Km`} />
+                        <StatisticsCard title="Tempo de atividade" value={` ${day.cyclingTime} horas`} />
                     </Grid>
 
                     <Grid item md={8} sx={{ display: { sm: 'none', md: 'block', lg: 'none' } }} />
 
                     <Grid item xs={12} sm={6} md={4} lg={3}>
-                        <StatisticsCard title="Mês" value={"janeiro"} />
+                        <StatisticsCard title="Velocidade média" value={`${day.avgSpeed} Km/h`} />
                     </Grid>
 
                     <Grid item xs={12} sm={6} md={4} lg={3}>
-                        <StatisticsCard title="Mês" value={"janeiro"} />
+                        <StatisticsCard title="Velocidade máxima" value={`${day.maxSpeed} Km/h`} />
                     </Grid>
 
                     <Grid item xs={12} sm={6} md={4} lg={3}>
-                        <StatisticsCard title="Mês" value={"janeiro"} />
+                        <StatisticsCard title="Distância" value={`${day.distance} Km`} />
                     </Grid>
 
                     <Grid item xs={12} sm={6} md={4} lg={3}>
-                        <StatisticsCard title="Mês" value={"janeiro"} />
+                        <StatisticsCard title="Odômetro" value={`${day.odometer} Km`} />
                     </Grid>
 
-                    <Grid item xs={12} md={7} lg={22}>
+                    <Grid item md={8} sx={{ display: { sm: 'none', md: 'block', lg: 'none' } }} />
+
+                    <Grid item xs={12} md={30} lg={30}>
                         <Grid container alignItems="center" justifyContent="space-between">
-                            <Grid item>
+                            <Grid item >
                                 <Typography variant="h5">Comentários</Typography>
                             </Grid>
                             <Grid item>
@@ -103,7 +152,7 @@ const DayDialog = ({ openDialog, date }) => {
                             //   label="Multiline"
                             multiline
                             rows={4}
-                            defaultValue="Sem comentários"
+                            defaultValue={day.comments.length == 0 ? "Sem comentários":day.comments}
                             disabled
                             margin="normal"
                             fullWidth
