@@ -191,11 +191,11 @@ const DashboardDefault = () => {
                             </Button>
                             <Button
                                 size="small"
-                                onClick={() => setSlot('duration')}
-                                color={slot === 'duration' ? 'primary' : 'secondary'}
-                                variant={slot === 'duration' ? 'outlined' : 'text'}
+                                onClick={() => setSlot('speed')}
+                                color={slot === 'speed' ? 'primary' : 'secondary'}
+                                variant={slot === 'speed' ? 'outlined' : 'text'}
                             >
-                                Duração
+                                Velocidade
                             </Button>
                         </Stack>
                     </Grid>

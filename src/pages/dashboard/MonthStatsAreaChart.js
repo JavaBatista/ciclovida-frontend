@@ -109,8 +109,8 @@ const MonthStatsAreaChart = ({ slot, month }) => {
     useEffect(() => {
         setSeries([
             {
-                name: slot === 'distance' ? 'Distância (Km)':`Duração (h)`,
-                data: slot === 'distance' ? getDistances() : getDurations()
+                name: slot === 'distance' ? 'Distância (Km)':`Velocidade média (Km/h)`,
+                data: slot === 'distance' ? getDistances() : getAvgSpeed()
                 // slot === 'distance' ? [76, 85, 101, 98, 87, 105, 91, 114, 94, 86, 115, 35] : [31, 40, 28, 51, 42, 109, 100]
             }
             // {
@@ -162,6 +162,14 @@ const MonthStatsAreaChart = ({ slot, month }) => {
          return distances;
     }
 
+    function getAvgSpeed() {
+        const speed =days.map((day) => {
+            return day.avgSpeed;
+         });
+ 
+         return speed;
+    }
+
     function getDurations() {
         const durations =days.map((day) => {
             const finishTime = dayjs(day.finishTime)
@@ -171,6 +179,7 @@ const MonthStatsAreaChart = ({ slot, month }) => {
  
          return durations;
     }
+
 
     return <ReactApexChart options={options} series={series} type="area" height={450} />;
 };
