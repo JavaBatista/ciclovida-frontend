@@ -6,7 +6,13 @@ Primeiro execute o backend na pasta backend.
 java -jar ciclovida-backend-0.0.1-SNAPSHOT.jar
 ```
 
-Execute o projeto com:
+Instale as dependências.
+
+```sh
+yarn install
+```
+
+Execute o projeto.
 
 ```sh
 yarn start
