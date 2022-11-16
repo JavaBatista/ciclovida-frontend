@@ -1,5 +1,7 @@
 # CicloVida
 
+A aplicação web tem o objetivo de permitir visualizar e editar dados do dia a dia de um ciclista. Os dados disponíveis para a aplicação web devem ser gerados por um ciclocomputador ou app e salvos em um banco de dados no backend. Para fins de demonstração os usários e dados disponíveis nesta aplicação são gerados quando o backend é inicializado.
+
 ## Demonstração
 
 https://user-images.githubusercontent.com/56196069/201805823-013fa145-6393-4d47-8572-429dee97e579.mp4
